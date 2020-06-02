@@ -2,7 +2,7 @@
 <footer class="footer py-4 bg-light">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-4 text-lg-left">Copyright © Your Website 2020</div>
+            <div class="col-lg-4 text-lg-left">Copyright © Erinnear <?= date('Y')  ?></div>
             <div class="col-lg-4 my-3 my-lg-0">
                 <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a><a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a><a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
             </div>
@@ -172,6 +172,9 @@
         </div>
     </div>
 </div>
+
+
+
 <!-- Bootstrap core JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -181,6 +184,18 @@
 <script src="<?=base_url('assets/');?>mail/jqBootstrapValidation.js"></script>
 <script src="<?=base_url('assets/');?>mail/contact_me.js"></script>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<script src="<?=base_url('assets/');?>js/scripts.js"></script>
+
+<!-- Change name when upload edit profile picture -->
+<script>
+  $('.custom-file-input').on('change', function(){
+    let fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+  });
+</script>
+
+
+
+
 </body>
 </html>

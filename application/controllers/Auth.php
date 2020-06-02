@@ -9,9 +9,16 @@ class Auth extends CI_Controller {
     $this->load->model('Auth_model');
     //pemanggilan library foem validasi biar semua method bisa menggunakannya
     $this->load->library('form_validation');
+
   }
 
   public function index(){ //controller login
+
+    //cek sudah login atau belum
+    if($this->session->userdata('email')){
+      redirect('home');
+    }
+
     //rules untuk memvalidasi isi form loginn
     $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
     $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -41,7 +48,14 @@ class Auth extends CI_Controller {
             'role_id'=>$user['role_id']
           ];
           $this->session->set_userdata($data);
-          redirect('home');
+
+          //cek role dari user yang loginn
+          if($user['role_id'] ==1){
+
+            redirect('admin');
+          }else{
+            redirect('home');
+          }
 
         }else{
           //password ssalah
@@ -76,6 +90,11 @@ class Auth extends CI_Controller {
   }
 
   public function registration(){
+    //cek sudah login atau belum
+    if($this->session->userdata('email')){
+      redirect('home');
+    }
+    
     //rules untuk memvalidasi isi form registration
     $this->form_validation->set_rules('name', 'Name', 'required|trim');
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]',[
