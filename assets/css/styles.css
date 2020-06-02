@@ -10145,6 +10145,8 @@ img::-moz-selection {
   }
   #mainNav .navbar-nav .nav-item {
     margin-right: 1rem;
+    margin-top: auto;
+    margin-bottom: auto;
   }
   #mainNav .navbar-nav .nav-item:last-child {
     margin-right: 0;
@@ -10520,7 +10522,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 }
 
 
-.profile-img-home{
+.img-profile{
   width: 50px;
   height: 50px;
   border-radius: 50%;
