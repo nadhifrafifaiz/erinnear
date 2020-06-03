@@ -55,7 +55,7 @@ class User extends CI_Controller {
       $email = $this->input->post('email');
 
       //ngambil data image yang di upload
-      $upload_image = $_FILES['image'];
+      $upload_image = $_FILES['image']['name'];
 
       //mengecek syarat upload gambar
       if($upload_image){

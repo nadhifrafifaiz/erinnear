@@ -36,9 +36,16 @@
 
       <!-- Nav Item - My Profile -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?= base_url('admin')  ?>">
           <i class="fas fa-fw fa-user"></i>
           <span>My Profile</span></a>
+      </li>
+
+      <!-- Nav Item - Edit Profile -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/edit')  ?>">
+          <i class="fas fa-fw fa-user-cog"></i>
+          <span>Edit Profile</span></a>
       </li>
 
       <!-- Divider -->

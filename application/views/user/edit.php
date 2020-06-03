@@ -1,32 +1,4 @@
 
-    <!-- Services-->
-    <section class="page-section bg-dark" id="services">
-        <div class="container mt-5 ">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase text-white">PROFILE</h2>
-                <h3 class="section-subheading text-white">Lorem ipsum dolor sit amet consectetur.</h3>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="<?=base_url('/assets/img/profile/'). $user['image']?>" alt="" />
-                        <h4 class="text-white"><?=$user['name'];  ?></h4>
-                        <p class="text-white"><?=$user['email'];  ?></p>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row justify-content-center">
-              <button class="btn btn-primary btn-lg text-uppercase js-scroll-trigger" href="#services">Edit Profile</button>
-            </div>
-        </div>
-
-    </section>
-
-
     <!-- Edit Profile-->
     <section class="page-section bg-light two" id="team" >
         <div class="container">

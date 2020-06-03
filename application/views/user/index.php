@@ -1,9 +1,9 @@
 
     <!-- Services-->
-    <section class="page-section bg-dark" id="services">
+    <section class="page-section bg-white" id="services">
         <div class="container mt-5 ">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase text-white">PROFILE</h2>
+                <h2 class="section-heading text-uppercase">PROFILE</h2>
 
                 <div class="row">
                   <div class="col">
@@ -11,15 +11,15 @@
                   </div>
                 </div>
 
-                <h3 class="section-subheading text-white">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
 
             <div class="row">
                 <div class="col">
                     <div class="team-member">
                         <img class="mx-auto rounded-circle" src="<?=base_url('/assets/img/profile/'). $user['image']?>" alt="" />
-                        <h4 class="text-white"><?=$user['name'];  ?></h4>
-                        <p class="text-white"><?=$user['email'];  ?></p>
+                        <h4 class=""><?=$user['name'];  ?></h4>
+                        <p class="text-muted"><?=$user['email'];  ?></p>
 
                     </div>
                 </div>
