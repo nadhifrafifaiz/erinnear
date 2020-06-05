@@ -6,6 +6,8 @@
     (function ($) {
     "use strict"; // Start of use strict
 
+
+
     // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
         if (
@@ -53,4 +55,36 @@
     navbarCollapse();
     // Collapse the navbar when page is scrolled
     $(window).scroll(navbarCollapse);
+
+
+
+    // ini JS kuh sendiri
+    // <!-- Change name when upload edit profile picture -->
+
+      $('.custom-file-input').on('change', function(){
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+      });
+
+      //change color t shirt Order
+      $('#change-black').on({'click': function(){
+          $('#gambar').attr('src','http://localhost/erinnear/assets/img/team/5.png');
+        }
+      });
+
+      //change color t shirt Order
+      $('#change-green').on({'click': function(){
+          $('#gambar').attr('src','http://localhost/erinnear/assets/img/team/4.png');
+        }
+      });
+
+
+
+
+
+
+
+
+
+
 })(jQuery); // End of use strict

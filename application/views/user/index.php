@@ -1,7 +1,7 @@
 
     <!-- Services-->
     <section class="page-section bg-white" id="services">
-        <div class="container mt-5 ">
+        <div class="container ">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">PROFILE</h2>
 

@@ -7,6 +7,7 @@ class Auth extends CI_Controller {
     parent::__construct();
     //pemanggilan model Auth_model untuk query database
     $this->load->model('Auth_model');
+    $this->load->model('Order_model');
     //pemanggilan library foem validasi biar semua method bisa menggunakannya
     $this->load->library('form_validation');
 
@@ -94,7 +95,7 @@ class Auth extends CI_Controller {
     if($this->session->userdata('email')){
       redirect('home');
     }
-    
+
     //rules untuk memvalidasi isi form registration
     $this->form_validation->set_rules('name', 'Name', 'required|trim');
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]',[
@@ -124,6 +125,10 @@ class Auth extends CI_Controller {
   }
 
   public function logout(){
+
+    $this->Order_model->insertTempCart();
+    //mengosongkan cart
+    $this->cart->destroy();
     $this->session->unset_userdata('email');
     $this->session->unset_userdata('role_id');
     redirect('home');
