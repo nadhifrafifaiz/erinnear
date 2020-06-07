@@ -10996,3 +10996,9 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+.img-cart-table{
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+}

@@ -48,6 +48,13 @@
           <span>Edit Profile</span></a>
       </li>
 
+      <!-- Nav Item - View Order -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/order')  ?>">
+          <i class="fas fa-fw fa-store"></i>
+          <span>Order</span></a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 

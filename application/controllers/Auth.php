@@ -129,8 +129,12 @@ class Auth extends CI_Controller {
     $this->Order_model->insertTempCart();
     //mengosongkan cart
     $this->cart->destroy();
+    $this->session->unset_userdata('destination');
+    $this->session->unset_userdata('service');
+    $this->session->unset_userdata('shippingCost');
     $this->session->unset_userdata('email');
     $this->session->unset_userdata('role_id');
+
     redirect('home');
   }
 

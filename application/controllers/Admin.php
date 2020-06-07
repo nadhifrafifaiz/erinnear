@@ -15,6 +15,7 @@ class Admin extends CI_Controller {
     }
 
     $this->load->model('User_model');
+    $this->load->model('Order_model');
 
   }
 
@@ -96,8 +97,59 @@ class Admin extends CI_Controller {
       redirect('admin');
 
     }
+  }
 
 
+  public function order(){
+    $data['title'] = 'Erinnear | Order Management';
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+
+    $data['orderData'] = $this->Order_model->getOrder();
+
+
+
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/admin_sidebar', $data);
+    $this->load->view('templates/admin_topbar', $data);
+    $this->load->view('admin/order.php',$data);
+    $this->load->view('templates/admin_footer');
+  }
+
+  public function orderDetail($orderId){
+    $data['title'] = 'Erinnear | Order Detail';
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+
+    $data['orderDetail'] = $this->Order_model->getOrderDetail($orderId);
+    $data['customerData'] = $this->Order_model->getCustomerData($orderId);
+
+
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/admin_sidebar', $data);
+    $this->load->view('templates/admin_topbar', $data);
+    $this->load->view('admin/detail.php',$data);
+    $this->load->view('templates/admin_footer');
+
+  }
+
+  public function orderDelete($orderId){
+    $selectedData = $this->Order_model->getOrderDetail($orderId);
+    $num = $this->db->affected_rows();
+
+    foreach ($selectedData as $data) {
+        unlink(FCPATH . 'assets/img/user_design/' . $data['design']); //hapus gambar dari folder
+      }
+
+    $this->Order_model->deleteOrder($orderId);
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      Order deleted!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+    redirect('admin/order');
   }
 
 }

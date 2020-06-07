@@ -75,7 +75,7 @@
                 </div>
                 <div class="row justify-content-center">
                   <div class="t-shirt-order">
-                    <img id="gambar" class="mx-auto " src="http://localhost/erinnear/assets/img/team/4.png" alt="" />
+                    <img id="gambar" class="mx-auto " src="http://localhost/erinnear/assets/img/shirt_color/4.png" alt="" />
                     <h4 class=""><?=$user['name'];  ?></h4>
                     <p class="text-muted"><?=$user['email'];  ?></p>
                     <button id="change-black" type="button" name="button">Black</button>
@@ -89,9 +89,21 @@
                   <?= form_open_multipart('order/addToCart');  ?>
 
                   <div class="form-group row">
+                    <label for="size" class="col-sm-2 col-form-label">Type</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="type" name="type" >
+                        <option value="">Select Type</option>
+                        <option value="T-Shirt Short Sleeve">T-Shirt Short Sleeve</option>
+                        <option value="T-Shirt Long Sleeve">T-Shirt Long Sleeve</option>
+                      </select>
+                    </div>
+                    <?= form_error('type', '<small class="text-danger pl-3">','</small>');  ?>
+                  </div>
+
+                  <div class="form-group row">
                     <label for="size" class="col-sm-2 col-form-label">Size</label>
                     <div class="col-sm-10">
-                      <select class="form-control" id="size" name="size">
+                      <select class="form-control" id="size" name="size" >
                         <option value="">Select Size</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -118,7 +130,7 @@
                   <div class="form-group row">
                     <label for="color" class="col-sm-2 col-form-label">Design Position</label>
                     <div class="col-sm-10">
-                      <select class="form-control" id="position" name="position">
+                      <select class="form-control" id="position" name="position" >
                         <option value="">Select Design Position</option>
                         <option value="Front">Front</option>
                         <option value="Back">Back</option>
@@ -131,7 +143,7 @@
                     <div class="form-group row">
                       <label for="name" class="col-sm-2 col-form-label">Quantity</label>
                       <div class="col-sm-4">
-                        <input type="text" class="form-control" id="quantity" name="quantity" value="">
+                        <input type="text" class="form-control" id="quantity" name="quantity" value="<?= set_value('quantity')?>">
                         <?= form_error('quantity', '<small class="text-danger pl-3">','</small>');  ?>
                       </div>
                     </div>
