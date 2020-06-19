@@ -58,20 +58,31 @@
                     </div>
 
                     <div class="form-group row">
-                      <label for="nama" class="col-sm-3 col-form-label">Town/City</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="town" name="town" value="<?= set_value('town')  ?>"/>
-                        <?= form_error('town', '<small class="text-danger pl-3">','</small>');  ?>
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label for="nama" class="col-sm-3 col-form-label">Province</label>
-                      <div class="col-sm-4">
-                        <input type="text" class="form-control" id="province" name="province" value="<?= set_value('province')  ?>"/>
+                      <label for="province" class="col-sm-3 col-form-label">Province</label>
+                      <div class="col-sm-9">
+                        <select class="form-control" id="province" name="province">
+                          <option value =" ">Select Province</option>
+                          <?php foreach ($province as $p):?>
+                          <option value ="<?=$p->province_id?>"><?=$p->province_name?></option>
+                         <?php endforeach ?>
+                        </select>
                         <?= form_error('province', '<small class="text-danger pl-3">','</small>');  ?>
                       </div>
                     </div>
+
+
+                    <div class="form-group row">
+                      <label for="city"  class="col-sm-3 col-form-label">City/Town</label>
+                      <div class="col-sm-9">
+                        <select class="form-control" id="destination" name="destination">
+                          <option value =" ">Select City</option>
+                        </select>
+                        <?= form_error('destination', '<small class="text-danger pl-3">','</small>');  ?>
+                      </div>
+                    </div>
+
+
+
 
 
                     <div class="form-group row">

@@ -10,6 +10,7 @@ class Order extends CI_Controller {
     parent::__construct();
 
     $this->load->model('Order_model');
+    $this->load->model('Province_model');
 
   }
 
@@ -97,10 +98,19 @@ class Order extends CI_Controller {
   public function cart(){
     $data['title'] = 'Erinnear | Cart';
     $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+    //mengambil data provinsi dari province_model
+    $data['province']=$this->Province_model->fetch_province();
 
     $this->load->view('templates/home_header',$data);
     $this->load->view('order/cart.php',$data);
     $this->load->view('templates/home_footer');
+  }
+
+  public function fetch_city(){
+    if($this->input->post('province_id'))
+    {
+      echo $this->Province_model->fetch_city($this->input->post('province_id'));
+    }
   }
 
 
@@ -167,9 +177,6 @@ class Order extends CI_Controller {
         $this->session->set_userdata('service', $test['rajaongkir']['results'][0]['costs'][1]);
         $this->session->set_userdata('shippingCost', $test['rajaongkir']['results'][0]['costs'][1]['cost'][0]['value']);
 
-
-
-
         redirect('order/cart');
 
         }
@@ -193,6 +200,8 @@ class Order extends CI_Controller {
     }
     $data['title'] = 'Erinnear | Checkout';
     $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+    //mengambil data provinsi dari province_model
+    $data['province']=$this->Province_model->fetch_province();
 
 
     $this->load->view('templates/home_header',$data);
@@ -201,13 +210,13 @@ class Order extends CI_Controller {
 
   }
 
-  public function placeOrder(){
 
+  public function placeOrder(){
     //rules form_validation
     $this->form_validation->set_rules('fullname', 'Full Name', 'trim|required');
     $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required|numeric');
     $this->form_validation->set_rules('address', 'Address', 'trim|required');
-    $this->form_validation->set_rules('town', 'Town/City', 'trim|required');
+    $this->form_validation->set_rules('destination', 'Town/City', 'trim|required');
     $this->form_validation->set_rules('province', 'Province', 'trim|required');
     $this->form_validation->set_rules('zip', 'ZIP', 'trim|required|numeric');
     //validasi form checkout

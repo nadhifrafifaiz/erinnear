@@ -47,8 +47,14 @@ class Order_model extends CI_model{
     $name = $this->input->post('fullname');
     $phone = $this->input->post('phone');
     $address = $this->input->post('address');
-    $town = $this->input->post('town');
-    $province = $this->input->post('province');
+    // Ngubah kode kota menjadi nama kota
+    $town_data = $this->db->get_where('city',['city_id' =>$this->input->post('destination')])->row_array();
+    $town = $town_data["city_name"];
+
+    // Ngubah kode provinsi menjadi nama provinsi
+    $province_data = $this->db->get_where('province',['province_id' =>$this->input->post('province')])->row_array();
+    $province = $province_data["province_name"];
+
     $zip = $this->input->post('zip');
     $note = $this->input->post('note');
     $status = 1;
@@ -119,6 +125,13 @@ class Order_model extends CI_model{
 
     $this->db->where('orderId', $orderId);
     $this->db->delete('order_item');
+  }
+
+  public function changeOrderStatus(){
+
+    $this->db->set('status', $this->input->post('status'));
+    $this->db->where('orderId', $this->input->post('orderId'));
+    $this->db->update('order_customer');
   }
 
 

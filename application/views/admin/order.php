@@ -35,12 +35,20 @@
                     <th><?= $data['name']  ?></th>
                     <th><?= $data['phone']  ?></th>
                     <th><?= $data['address']  ?></th>
-                    <?php if ($data['status'] = 1): ?>
+
+                    <?php if ($data['status'] == 1): ?>
                       <th>Wating for payment verification</th>
+                    <?php elseif ($data['status'] == 2): ?>
+                      <th>Order are in Progress</th>
+                    <?php elseif ($data['status'] == 3): ?>
+                      <th>Order are being Wrapped</th>
+                    <?php elseif ($data['status'] == 4): ?>
+                      <th>Package are on the Way</th>
                     <?php endif; ?>
                     <th>
-                      <a href="<?= base_url("admin/orderDetail/".$data['orderId'])?>">View</a>
-                      <a href="<?= base_url("admin/orderDelete/".$data['orderId'])?>">Delete</a>
+                      <a href="<?= base_url("admin/orderDetail/".$data['orderId'])?>" class=" badge badge-warning ml-3">View</a>
+                      <a href="<?= base_url("admin/orderStatus/".$data['orderId'])?>" class="badge badge-success ml-3">Edit</a>
+                      <a href="<?= base_url("admin/orderDelete/".$data['orderId'])?>" class="badge badge-danger ml-3">Delete</a>
                     </th>
                     <th><?= $data['note']  ?></th>
                 </tr>

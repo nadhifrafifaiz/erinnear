@@ -22,9 +22,6 @@
                       <th scope="col">Qty</th>
                       <th scope="col"> Total Price</th>
 
-
-
-
                     </tr>
                   </thead>
 
@@ -75,16 +72,16 @@
                         <td>
                           <form class="" action="<?=base_url('order/checkShipping');  ?>" method="post">
                             <div class="form-group">
+                               <label for="exampleFormControlSelect1">Provinsi Tempat Anda Tinggal</label>
+                               <select class="form-control" id="province" name="province">
+                                 <option value =" ">Select Province</option>
+                                 <?php foreach ($province as $p):?>
+                                 <option value ="<?=$p->province_id?>"><?=$p->province_name?></option>
+                                <?php endforeach ?>
+                               </select>
                                <label for="exampleFormControlSelect1">Kota Tempat Anda Tinggal</label>
-                               <select class="form-control" id="destination" name="destination" value="<?= set_value('destination')?>">
-                                 <option value =" ">Kota</option>
-                                 <option value ="151">Jakarta Barat</option>
-                                 <option value ="152">Jakarta Pusat</option>
-                                 <option value ="153">Jakarta Selatan</option>
-                                 <option value ="154">Jakarta Timur</option>
-                                 <option value ="267">Manado</option>
-                                 <option value ="457">Tangerang Selatan</option>
-                                 <option value ="334">Pangkal Pinang</option>
+                               <select class="form-control" id="destination" name="destination">
+                                 <option value =" ">Select City</option>
                                </select>
                                <small class="form-text text-danger"><?= form_error('destination');  ?></small>
                              </div>

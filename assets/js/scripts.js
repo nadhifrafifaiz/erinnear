@@ -87,6 +87,23 @@
       //   })
       // })
 
+      $('#province').change(function(){
+        var province_id = $('#province').val();
+        if(province_id != '')
+        {
+          console.log("base_url('order/fetch_city')");
+          $.ajax({
+            url:"http://localhost/erinnear/order/fetch_city",
+            method:"POST",
+            data:{province_id:province_id},
+            success:function(data)
+            {
+              $('#destination').html(data);
+            }
+          })
+        }
+      });
+
 
 
 
