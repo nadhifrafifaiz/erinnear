@@ -4,22 +4,30 @@
         <div class="container ">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">PROFILE</h2>
-
                 <div class="row">
                   <div class="col">
                     <?=  $this->session->flashdata('message');?>
                   </div>
                 </div>
-
-                <h3 class="section-subheading">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
 
             <div class="row">
-                <div class="col">
+                <div class="col-lg-6 col-md-6">
                     <div class="team-member">
                         <img class="mx-auto rounded-circle" src="<?=base_url('/assets/img/profile/'). $user['image']?>" alt="" />
                         <h4 class=""><?=$user['name'];  ?></h4>
                         <p class="text-muted"><?=$user['email'];  ?></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="team-member">
+                        <h4 class="text-muted">Points</h4>
+                        <h1 class=""><?=$user['point'];  ?></h1>
+                        <h4 class="text-muted">Banyak Pesanan</h4>
+                        <h1 class=""><?= $transaction?></h1>
+                        <h4 class="text-muted">Member Sejak</h4>
+                        <h2 class=""><?= date('d F Y', $user['date_created']);  ?></h2>
 
                     </div>
                 </div>
@@ -44,35 +52,38 @@
             <div class="row">
                 <div class="col">
                   <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Handle</th>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($orderUser as $data):?>
+                      <tr>
+                        <th>1</th>
+                        <th><?= $data['orderId']  ?></th>
+                        <th><?= $data['email']  ?></th>
+                        <th><?= $data['name']  ?></th>
+                        <th><?= $data['phone']  ?></th>
+
+                        <?php if ($data['status'] == 1): ?>
+                          <th>Wating for payment verification</th>
+                        <?php elseif ($data['status'] == 2): ?>
+                          <th>Order are in Progress</th>
+                        <?php elseif ($data['status'] == 3): ?>
+                          <th>Order are being Wrapped</th>
+                        <?php elseif ($data['status'] == 4): ?>
+                          <th>Package are on the Way</th>
+                        <?php endif; ?>
                     </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter</td>
-                    </tr>
-                  </tbody>
-                  </table>
+                      <?php endforeach; ?>
+                    </tbody>
+                    </table>
                 </div>
 
 

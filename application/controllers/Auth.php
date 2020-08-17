@@ -61,7 +61,7 @@ class Auth extends CI_Controller {
         }else{
           //password ssalah
           $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                      Password is incorrect
+                                                      Password Anda Salah
                                                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                       </button>
@@ -71,7 +71,7 @@ class Auth extends CI_Controller {
       }else {
         //user belum aktif
         $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                    Email has not been activated
+                                                    Email Belum di Aktivasi
                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                       <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -81,7 +81,7 @@ class Auth extends CI_Controller {
     }else{
       //gagalkan login
       $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                  Email is not registered
+                                                  Email Anda Belum Terdaftar
                                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                   </button>
@@ -99,11 +99,11 @@ class Auth extends CI_Controller {
     //rules untuk memvalidasi isi form registration
     $this->form_validation->set_rules('name', 'Name', 'required|trim');
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]',[
-      'is_unique'=>'This email is already registered'
+      'is_unique'=>'Email ini sudah dipakai'
     ]);
     $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]',[
-      'matches'=>'Password dont match!',
-      'min_length'=>'Password too short!'
+      'matches'=>'Password tidak cocok',
+      'min_length'=>'Password terlalu pendek'
     ]);
     $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
     //jika isi dari form validasi registrasi salah maka load lagi halaman regist
@@ -115,7 +115,7 @@ class Auth extends CI_Controller {
     }else {//kalau bener maka lakukan...
       $this->Auth_model->insertNewUser();
       $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                  Congratulation! your account has been created. Please login
+                                                  Selamat! Akun anda berhasil dibuat, silahkan login
                                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                   </button>

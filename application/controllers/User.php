@@ -13,6 +13,7 @@ class User extends CI_Controller {
 
     //pemanggilan model Auth_model untuk query database
     $this->load->model('User_model');
+    $this->load->model('Order_model');
 
   }
 
@@ -20,6 +21,9 @@ class User extends CI_Controller {
   public function index(){
     $data['title'] = 'Erinnear | User Profile';
     $data['user'] = $this->User_model->getDataUser();
+    $data['transaction'] = $this->User_model->getUserTransaction();
+    $data['orderUser'] = $this->Order_model->getOrderByUser();
+
 
     $role_id = $data['user']['role_id'];
 

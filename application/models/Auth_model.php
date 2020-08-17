@@ -11,7 +11,8 @@ class Auth_model extends CI_model{
       'password'=> password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
       'role_id'=>2,
       'is_active'=>1,
-      'date_created'=>time()
+      'date_created'=>time(),
+      'point' =>0
     ];
 
     $this->db->insert('user', $data);

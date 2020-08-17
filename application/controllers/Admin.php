@@ -106,9 +106,6 @@ class Admin extends CI_Controller {
 
     $data['orderData'] = $this->Order_model->getOrder();
 
-
-
-
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/admin_sidebar', $data);
     $this->load->view('templates/admin_topbar', $data);

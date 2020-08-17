@@ -109,6 +109,11 @@ class Order_model extends CI_model{
 
   }
 
+  //dipakai di User
+  public function getOrderByUser(){
+    return $this->db->get_where('order_customer', ['email'=>$this->session->userdata('email')])->result_array();
+  }
+
   public function getOrderDetail($orderId){
     $orderDetail = $this->db->get_where('order_item', ['orderId'=>$orderId])->result_array();
     return($orderDetail);
