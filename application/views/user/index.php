@@ -17,6 +17,11 @@
                         <img class="mx-auto rounded-circle" src="<?=base_url('/assets/img/profile/'). $user['image']?>" alt="" />
                         <h4 class=""><?=$user['name'];  ?></h4>
                         <p class="text-muted"><?=$user['email'];  ?></p>
+                        <div class="row justify-content-center">
+                          <a class="btn btn-primary btn-lg text-uppercase js-scroll-trigger" href="<?= base_url('user/edit')  ?>">Edit Profile</a>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -27,16 +32,27 @@
                         <h4 class="text-muted">Banyak Pesanan</h4>
                         <h1 class=""><?= $transaction?></h1>
                         <h4 class="text-muted">Member Sejak</h4>
-                        <h2 class=""><?= date('d F Y', $user['date_created']);  ?></h2>
+                        <h2 class="mb-4"><?= date('d F Y', $user['date_created']);  ?></h2>
+
+                        <div class="row justify-content-center">
+                          <div class="col-lg-6">
+                              <form class="" action="<?= base_url('User/referal')  ?>" method="post">
+                                <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Email Teman Anda" name="referal">
+                                <div class="input-group-append">
+                                  <input class="btn btn-primary" type="submit" name="submit"></input>
+                                </div>
+                              </div>
+                              </form>
+                          </div>
+                        </div>
 
                     </div>
                 </div>
 
             </div>
 
-            <div class="row justify-content-center">
-              <a class="btn btn-primary btn-lg text-uppercase js-scroll-trigger" href="<?= base_url('user/edit')  ?>">Edit Profile</a>
-            </div>
+
         </div>
 
     </section>
@@ -63,9 +79,11 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php $num = 1; ?>
                       <?php foreach ($orderUser as $data):?>
                       <tr>
-                        <th>1</th>
+                        <th><?= $num?></th>
+                        <?php $num++; ?>
                         <th><?= $data['orderId']  ?></th>
                         <th><?= $data['email']  ?></th>
                         <th><?= $data['name']  ?></th>
@@ -79,6 +97,8 @@
                           <th>Order are being Wrapped</th>
                         <?php elseif ($data['status'] == 4): ?>
                           <th>Package are on the Way</th>
+                        <?php elseif ($data['status'] == 5): ?>
+                          <th>Selesai</th>
                         <?php endif; ?>
                     </tr>
                       <?php endforeach; ?>

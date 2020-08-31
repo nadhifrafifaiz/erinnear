@@ -12,7 +12,7 @@ class Auth_model extends CI_model{
       'role_id'=>2,
       'is_active'=>1,
       'date_created'=>time(),
-      'point' =>0
+      'point' =>100
     ];
 
     $this->db->insert('user', $data);

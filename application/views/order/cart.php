@@ -4,11 +4,14 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Cart</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
             <div class="row">
                 <div class="col">
                   <table class="table">
+                    <?php if ($this->cart->contents()  == null): ?>
+                      <p class="text-center ">Anda Tidak Memiliki Barang di Keranjang Belanja</p>
+                    
+                    <?php else: ?>
                   <thead>
                     <tr>
 
@@ -21,7 +24,6 @@
                       <th scope="col">Price</th>
                       <th scope="col">Qty</th>
                       <th scope="col"> Total Price</th>
-
                     </tr>
                   </thead>
 
@@ -46,6 +48,7 @@
 
                     </tr>
                   <?php endforeach; ?>
+
                   </tbody>
 
                   </table>
@@ -141,7 +144,7 @@
 
               </div>
             </div>
-
+            <?php endif; ?>
 
 
 

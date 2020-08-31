@@ -69,6 +69,7 @@ class Order_model extends CI_model{
       'province'=>htmlspecialchars($province),
       'zip'=>htmlspecialchars($zip),
       'note'=>htmlspecialchars($note),
+      'date_created'=>time(),
       'status'=>$status
     ];
 
@@ -102,9 +103,36 @@ class Order_model extends CI_model{
 
   }
 
-
+  //ambil seluruh data order
   public function getOrder(){
-    $orderData = $this->db->get('order_customer')->result_array();
+    $this->db->select('*');
+    $this->db->from('order_customer');
+    $this->db->where('status !=' , 5);
+    $orderData = $this->db->get()->result_array();
+
+    // $orderData = $this->db->get_where('order_customer', ['status'=>5])->result_array();
+    // $orderData = $this->db->get('order_customer')->result_array();
+    return($orderData);
+
+  }
+
+  public function getDataOrder($limit, $start, $keyword = null){
+    //kalo user searching
+    if($keyword){
+      $this->db->like('name', $keyword);
+      $this->db->or_like('orderId', $keyword);
+    }
+    $this->db->order_by('date_created', 'DESC');
+    return $orderData = $this->db->get_where('order_customer', ['status!='=>5],$limit, $start)->result_array();
+
+    // return $this->db->get_where('order_customer', ['status'=>5], $limit, $start)->result_array();
+    // return $this->db->get('order_customer', $limit, $start)->result_array();
+  }
+
+
+  public function getSuccessOrder($limit, $start){
+    $orderData = $this->db->get_where('order_customer', ['status'=>5],$limit, $start)->result_array();
+    // $orderData = $this->db->get('order_customer')->result_array();
     return($orderData);
 
   }
@@ -137,6 +165,20 @@ class Order_model extends CI_model{
     $this->db->set('status', $this->input->post('status'));
     $this->db->where('orderId', $this->input->post('orderId'));
     $this->db->update('order_customer');
+  }
+
+  public function doneOrder($orderId){
+    $this->db->set('status', 5);
+    $this->db->where('orderId', $orderId);
+    $this->db->update('order_customer');
+  }
+
+  public function countAllOrder(){
+    return $this->db->get('order_customer')->num_rows();
+  }
+
+  public function countSuccessOrder(){
+    return $this->db->get_where('order_customer', ['status'=>5])->num_rows();
   }
 
 

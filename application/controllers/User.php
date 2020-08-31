@@ -102,7 +102,51 @@ class User extends CI_Controller {
       redirect('user');
 
     }
-
-
   }
+
+  public function referal(){
+    $data['user'] = $this->User_model->getDataUser();
+    $data['email'] = $data['user']['email'];
+
+  //ambil data Email referal
+    if ($this->input->post('submit')) {
+      $data['referal'] =  $this->input->post('referal');
+      $cek = $this->User_model->referalCek($data['email'], $data['referal']);
+
+      //kalo email sudah ada
+      if ($cek) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Referal Email Sudah Digunakan
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>');
+        redirect('user');
+      } else {
+        $cekEmailReferal = $this->User_model->referalEmailCek($data['email'], $data['referal']);
+        //kalo berhasil
+        if ($cekEmailReferal) {
+          $this->User_model->referalPoin($data['email'], $data['referal']);
+          $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Anda Mendapat 100 Poin
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>');
+          redirect('user');
+
+        }else{
+          //kalo email tidak terdaftar
+          $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Referal Email Tidak Dikenal
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>');
+          redirect('user');
+        }
+      }
+    }
+  }
+
 }

@@ -3,16 +3,12 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Order Detail</h1>
-          <div class="col-4">
-            <?= $this->session->flashdata('message');  ?>
-          </div>
-
-          <div class="row-lg-6">
-            <div class="col-lg-11">
-              <a href="<?=base_url('admin/order')  ?>"><h5><?= $customerData['name']." : ".$customerData['orderId']?></h5></a>
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary mb-2">Order Detail</h6>
+              <a href="<?=base_url('admin/order')  ?>"><h4><?= $customerData['name']." : ".$customerData['orderId']?></h4></a>
+            </div>
+            <div class="card-body ">
               <table class="table">
                 <thead>
                   <tr>
@@ -43,6 +39,7 @@
                   <?php endforeach; ?>
                 </tbody>
                 </table>
+
             </div>
           </div>
 

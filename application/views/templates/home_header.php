@@ -25,10 +25,10 @@
                     <a class="navbar-brand js-scroll-trigger" href="<?=base_url('home')  ?>"><img src="<?=base_url('/assets/img/navbar-logo.svg') ?>" alt="" /></a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars ml-1"></i></button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav text-uppercase ml-auto">
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?=base_url('Order')  ?>">Order</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="https://www.youtube.com/watch?v=amOSaNX7KJg&list=RDwKyMIrBClYw&index=23">Portfolio</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="">Tracker</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?=base_url('Order')  ?>">Pesan</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Portofolio')  ?>">Portofolio</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="">Lacak</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Tentang</a></li>
 
                             <?php if($this->session->userdata('email')): ?>
                               <div class="dropdown">
@@ -38,13 +38,13 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <a class="dropdown-item" href="<?=base_url('user/index')  ?>">Profile</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="<?=base_url('auth/logout');  ?>">Logout</a>
+                                  <a class="dropdown-item" href="<?=base_url('user/index')  ?>">Profil</a>
+                                  <a class="dropdown-item" href="<?=base_url('order/cart') ?>">Keranjang Belanja</a>
+                                  <a class="dropdown-item" href="<?=base_url('auth/logout');  ?>">Keluar</a>
                                 </div>
                               </div>
                             <?php else: ?>
-                              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?=base_url('auth');  ?>">Login</a></li>
+                              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?=base_url('auth');  ?>">Masuk</a></li>
                             <?php endif; ?>
 
                         </ul>

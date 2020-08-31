@@ -11,6 +11,7 @@ class Order extends CI_Controller {
 
     $this->load->model('Order_model');
     $this->load->model('Province_model');
+    $this->load->model('User_model');
 
   }
 
@@ -197,6 +198,8 @@ class Order extends CI_Controller {
                                                   </button>
                                                 </div>');
       redirect('order/cart');
+    }elseif ($this->session->userdata('shippingCost') == 1) {
+      $this->session->set_userdata('shippingCost', 0);
     }
     $data['title'] = 'Erinnear | Checkout';
     $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
@@ -235,16 +238,55 @@ class Order extends CI_Controller {
       $this->session->unset_userdata('service');
       $this->session->unset_userdata('shippingCost');
       $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                  Your order is waiting for payment, Please Verified.....
+                                                  Silahkan Lakukan Pembayaran dan Verifikasi Via WhatApps
                                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                   </button>
                                                 </div>');
-      redirect('home');
+      redirect('user');
 //ini ke status langsung
     }
+  }
 
 
+  public function usePoint(){
+    if ( $this->session->userdata('usePointClicked')==1) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                  Anda Sudah Menggunakan Point Anda
+                                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>');
+      $this->session->set_userdata('shippingCost', 1);                                          
+      redirect('order/checkout');
 
+    }
+    $this->session->set_userdata('usePointClicked', 1);
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+    if ($data['user']['point'] < 100) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                  Point Yang Anda Miliki Kurang
+                                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>');
+      $shippingCostTemp = $this->session->userdata('shippingCost');
+      redirect('order/checkout');
+    }
+    $shippingCostTemp = $this->session->userdata('shippingCost');
+    $pointTemp = $data['user']['point'];
+    $this->session->set_userdata('pointTemp', $pointTemp);
+    $this->session->set_userdata('shippingCostTemp', $shippingCostTemp);
+    $this->session->set_userdata('shippingCost', 1);
+    $this->User_model->referalMinus();
+    redirect('order/checkout');
+  }
+
+  public function unUsePoint(){
+    $this->session->set_userdata('usePointClicked', 0);
+    $shippingCostTemp = $this->session->userdata('shippingCostTemp');
+    $this->session->set_userdata('shippingCost', $shippingCostTemp);
+    $this->User_model->referalPlus();
+    redirect('order/checkout');
   }
 }

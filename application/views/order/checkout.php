@@ -3,6 +3,7 @@
     <div class="container">
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Checkout</h2>
+            <?= $this->session->flashdata('message');  ?>
             <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
 
@@ -156,7 +157,21 @@
                 </tr>
               </table>
             </div>
+          </div>
 
+          <div class="row text-right mt-3 mr-4 justify-content-right">
+            <div class="col">
+              <h5>Anda Memiliki
+                <?php if (!$this->session->userdata('email')):?>
+                <?= "0"; ?>
+              <?php else: ?>
+                <?=$user['point']?>
+              <?php endif; ?> 
+                Points</h5>
+              <p>Gunakan 100 poin untuk gratis ongkos kirim</p>
+              <a href="<?=base_url('order/usepoint')  ?>" class="btn btn-primary">Gunakan Poin</a>
+              <a href="<?=base_url('order/unusepoint')  ?>" class="btn btn-danger">Batalkan</a>
+            </div>
           </div>
 
         </div>
@@ -165,12 +180,14 @@
       <div class="card mt-5">
         <div class="card-body">
           <div class="row">
-              <div class="col-lg-8 "><p class="large text-muted">Direct Bank Transfer</p></div>
+              <div class="col-lg-8 "><h4 class="mb-4">Payment</h4></div>
           </div>
           <div class="card">
             <div class="card-body bg-light">
               <div class="row">
-                  <div class="col-lg-8 "><p class="large text-muted">silahkan melakukan pembayaran ke rekening BANK BCA atas nama FIRMANSYAH PATRIAMAN 517 079 5000</p></div>
+                  <div class="col-lg-12 ">
+                    <p class="large">Silahkan melakukan pembayaran ke rekening BANK BCA atas nama FIRMANSYAH PATRIAMAN 517 079 5000</p>
+                  </div>
               </div>
             </div>
           </div>

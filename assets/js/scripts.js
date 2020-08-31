@@ -68,15 +68,38 @@
 
       //change color t shirt Order
       $('#change-black').on({'click': function(){
-          $('#gambar').attr('src','http://localhost/erinnear/assets/img/shirt_color/5.png');
+          $('#gambar').attr('src','http://localhost/erinnear/assets/img/shirt_color/1.png');
+        }
+      });
+
+      //change color t shirt Order
+      $('#change-white').on({'click': function(){
+          $('#gambar').attr('src','http://localhost/erinnear/assets/img/shirt_color/2.png');
         }
       });
 
       //change color t shirt Order
       $('#change-green').on({'click': function(){
+          $('#gambar').attr('src','http://localhost/erinnear/assets/img/shirt_color/3.png');
+        }
+      });
+
+      //change color t shirt Order
+      $('#change-gray').on({'click': function(){
           $('#gambar').attr('src','http://localhost/erinnear/assets/img/shirt_color/4.png');
         }
       });
+      //change color t shirt Order
+      $('#change-red').on({'click': function(){
+          $('#gambar').attr('src','http://localhost/erinnear/assets/img/shirt_color/5.png');
+        }
+      });
+      //change color t shirt Order
+      $('#change-navy').on({'click': function(){
+          $('#gambar').attr('src','http://localhost/erinnear/assets/img/shirt_color/6.png');
+        }
+      });
+
 
 
 
