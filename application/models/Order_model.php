@@ -104,36 +104,72 @@ class Order_model extends CI_model{
   }
 
   //ambil seluruh data order
-  public function getOrder(){
-    $this->db->select('*');
-    $this->db->from('order_customer');
-    $this->db->where('status !=' , 5);
-    $orderData = $this->db->get()->result_array();
+  public function getOrder($limit, $start, $keyword = null){
+    //kalo user searching
+    if($keyword){
+      $this->db->like('name', $keyword);
+      $this->db->or_like('orderId', $keyword);
+      $this->db->order_by('date_created', 'DESC');
+      return $orderData = $this->db->get('order_customer',$limit, $start)->result_array();
 
-    // $orderData = $this->db->get_where('order_customer', ['status'=>5])->result_array();
-    // $orderData = $this->db->get('order_customer')->result_array();
-    return($orderData);
+    }
+    $this->db->order_by('date_created', 'DESC');
+    return $orderData = $this->db->get('order_customer',$limit, $start)->result_array();
 
   }
 
   public function getDataOrder($limit, $start, $keyword = null){
     //kalo user searching
     if($keyword){
+      $this->db->where('status !=', 5);
       $this->db->like('name', $keyword);
       $this->db->or_like('orderId', $keyword);
+      $this->db->order_by('date_created', 'DESC');
+      return $orderData = $this->db->get('order_customer',$limit, $start)->result_array();
+
+      // $query = $this->db->select('*')
+      //       ->from('order_customer')
+      //       ->where('status !=', 5)
+      //       ->where("(name LIKE '%$keyword%' OR orderId LIKE '%$keyword%' )")
+      //       ->get()->result_array();
+      // return($query);
+
     }
     $this->db->order_by('date_created', 'DESC');
     return $orderData = $this->db->get_where('order_customer', ['status!='=>5],$limit, $start)->result_array();
+
+    // $this->db->select('*');
+    // $this->db->from('order_customer');
+    // $this->db->where('status !=' , 5);
+    // $orderData = $this->db->get()->result_array();
+
+    // $query = $this->db->select('*')
+    //       ->from('order_customer')
+    //       ->where('status !=', 5)
+    //       ->get()->result_array();
+    // return($query);
+
 
     // return $this->db->get_where('order_customer', ['status'=>5], $limit, $start)->result_array();
     // return $this->db->get('order_customer', $limit, $start)->result_array();
   }
 
 
-  public function getSuccessOrder($limit, $start){
-    $orderData = $this->db->get_where('order_customer', ['status'=>5],$limit, $start)->result_array();
-    // $orderData = $this->db->get('order_customer')->result_array();
-    return($orderData);
+  public function getSuccessOrder($limit, $start, $keyword = null){
+    if($keyword){
+      // $this->db->like('name', $keyword);
+      // $this->db->or_like('orderId', $keyword);
+
+      $this->db->where('status', 5);
+      $this->db->like('name', $keyword);
+      $this->db->or_like('orderId', $keyword);
+      $this->db->order_by('date_created', 'DESC');
+      return $orderData = $this->db->get('order_customer',$limit, $start)->result_array();
+    }
+    // $orderData = $this->db->get_where('order_customer', ['status'=>5],$limit, $start)->result_array();
+    // return($orderData);
+    $this->db->order_by('date_created', 'DESC');
+    return $orderData = $this->db->get_where('order_customer', ['status'=>5],$limit, $start)->result_array();
 
   }
 

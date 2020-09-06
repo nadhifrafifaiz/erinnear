@@ -249,7 +249,9 @@ class Order extends CI_Controller {
   }
 
 
+  //cek referal code
   public function usePoint(){
+    //apakah sudah pernah pakai referal kode
     if ( $this->session->userdata('usePointClicked')==1) {
       $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                                   Anda Sudah Menggunakan Point Anda
@@ -257,11 +259,12 @@ class Order extends CI_Controller {
                                                     <span aria-hidden="true">&times;</span>
                                                   </button>
                                                 </div>');
-      $this->session->set_userdata('shippingCost', 1);                                          
+      $this->session->set_userdata('shippingCost', 1);
       redirect('order/checkout');
 
     }
     $this->session->set_userdata('usePointClicked', 1);
+    //cek  poin cukup atau tidak
     $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
     if ($data['user']['point'] < 100) {
       $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -273,6 +276,7 @@ class Order extends CI_Controller {
       $shippingCostTemp = $this->session->userdata('shippingCost');
       redirect('order/checkout');
     }
+    //kalau poin cukup
     $shippingCostTemp = $this->session->userdata('shippingCost');
     $pointTemp = $data['user']['point'];
     $this->session->set_userdata('pointTemp', $pointTemp);
@@ -282,6 +286,7 @@ class Order extends CI_Controller {
     redirect('order/checkout');
   }
 
+  //batalkan penggunaan referal kode
   public function unUsePoint(){
     $this->session->set_userdata('usePointClicked', 0);
     $shippingCostTemp = $this->session->userdata('shippingCostTemp');

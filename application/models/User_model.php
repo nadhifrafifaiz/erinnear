@@ -8,10 +8,27 @@ class User_model extends CI_model{
     return $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
   }
 
+  //user Management
+  public function getUser($limit, $start, $keyword = null){
+    //mengembalikan hasil query database
+    if($keyword){
+      $this->db->like('name', $keyword);
+      $this->db->order_by('date_created', 'DESC');
+      return $userData = $this->db->get('user',$limit, $start)->result_array();
+    }
+    $this->db->order_by('date_created', 'DESC');
+    return $userData = $this->db->get('user',$limit, $start)->result_array();
+  }
+
   public function getUserTransaction(){
     //mengambil banyaknya transaksi user yang berhasil
     return $this->db->get_where('order_customer', ['email'=>$this->session->userdata('email')])->num_rows();
+  }
 
+  //get user by id
+  public function getCustomerData($id){
+    $customerData = $this->db->get_where('user', ['id'=>$id])->row_array();
+    return($customerData);
   }
 
   //mengecek referal
@@ -58,6 +75,20 @@ class User_model extends CI_model{
     $userPoint = $user['point'] - $point;
     $this->db->set('point', $userPoint);
     $this->db->where('email', $this->session->userdata('email'));
+    $this->db->update('user');
+  }
+
+  public function changeCustomer(){
+
+    $name = $this->input->post('name');
+    $point = $this->input->post('point');
+    $role = $this->input->post('role');
+
+
+    $this->db->set('name', $name);
+    $this->db->set('point', $point);
+    $this->db->set('role_id', $role);
+    $this->db->where('id', $this->input->post('id'));
     $this->db->update('user');
   }
 

@@ -20,8 +20,6 @@
                         <div class="row justify-content-center">
                           <a class="btn btn-primary btn-lg text-uppercase js-scroll-trigger" href="<?= base_url('user/edit')  ?>">Edit Profile</a>
                         </div>
-
-
                     </div>
                 </div>
 

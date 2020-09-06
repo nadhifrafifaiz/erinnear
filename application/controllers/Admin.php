@@ -136,7 +136,7 @@ class Admin extends CI_Controller {
     $this->load->view('templates/admin_sidebar', $data);
     $this->load->view('templates/admin_topbar', $data);
     $this->load->view('admin/order.php',$data);
-    $this->load->view('templates/admin_footer');
+    $this->load->view('templates/admin_footer', $data);
   }
 
 //melihat detail pesanan
@@ -193,6 +193,25 @@ class Admin extends CI_Controller {
     redirect('admin/order');
   }
 
+  //pesanan dihapus
+  public function orderHistoryDelete($orderId){
+    $selectedData = $this->Order_model->getOrderDetail($orderId);
+    $num = $this->db->affected_rows();
+
+    foreach ($selectedData as $data) {
+        unlink(FCPATH . 'assets/img/user_design/' . $data['design']); //hapus gambar dari folder
+      }
+
+    $this->Order_model->deleteOrder($orderId);
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      Order deleted!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+    redirect('admin/orderHistory');
+  }
   //pemesanan selesai
   public function orderDone($orderId){
     $selectedData = $this->Order_model->getOrderDetail($orderId);
@@ -230,23 +249,39 @@ class Admin extends CI_Controller {
 
   //order histori
   public function orderHistory(){
+    $data['title'] = 'Erinnear | Pesanan Berhasil';
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+    // $data['orderHistory'] = $this->Order_model->getSuccessOrder();
+
     //laod library
     $this->load->library('pagination');
+    //ambil data keyword
+    if($this->input->post('cari')){
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
     //config
     $config['base_url'] = 'http://localhost/erinnear/admin/orderHistory';
-    $config['total_rows'] = $this->Order_model->countSuccessOrder();
-    $config['per_page'] = 3;
+
+    $this->db->like('name', $data['keyword']);
+    $this->db->or_like('orderId', $data['keyword']);
+    $this->db->from('order_customer');
+
+
+    $config['total_rows'] = $this->db->count_all_results();
+    $data['total_rows'] = $config['total_rows'];
+    $config['per_page'] = 5;
 
     //initialize
     $this->pagination->initialize($config);
 
     //ngasih tahu start dari mana
     $data['start'] = $this->uri->segment(3);
-    $data['orderHistory'] = $this->Order_model->getSuccessOrder($config['per_page'],$data['start']);
+    $data['orderHistory'] = $this->Order_model->getSuccessOrder($config['per_page'],$data['start'], $data['keyword']);
 
-    $data['title'] = 'Erinnear | Pesanan Berhasil';
-    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
-    // $data['orderHistory'] = $this->Order_model->getSuccessOrder();
 
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/admin_sidebar', $data);
@@ -254,6 +289,76 @@ class Admin extends CI_Controller {
     $this->load->view('admin/order_history.php',$data);
     $this->load->view('templates/admin_footer');
   }
+
+  //user management
+  public function userManagement(){
+    $data['title'] = 'Erinnear | User Management';
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+
+    //laod library
+    $this->load->library('pagination');
+    //ambil data keyword
+    if($this->input->post('cari')){
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    //config
+    $config['base_url'] = 'http://localhost/erinnear/admin/userManagement';
+
+    $this->db->like('name', $data['keyword']);
+    $this->db->from('user');
+
+
+    $config['total_rows'] = $this->db->count_all_results();
+    $data['total_rows'] = $config['total_rows'];
+    $config['per_page'] = 5;
+
+    //initialize
+    $this->pagination->initialize($config);
+
+    //ngasih tahu start dari mana
+    $data['start'] = $this->uri->segment(3);
+    $data['userData'] = $this->User_model->getUser($config['per_page'],$data['start'], $data['keyword']);
+
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/admin_sidebar', $data);
+    $this->load->view('templates/admin_topbar', $data);
+    $this->load->view('admin/user_management', $data);
+    $this->load->view('templates/admin_footer');
+  }
+
+  //ubah user status dan juga point
+  public function userEdit($id){
+    $data['title'] = 'Erinnear | Order Status';
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+
+    $data['customerData'] = $this->User_model->getCustomerData($id);
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/admin_sidebar', $data);
+    $this->load->view('templates/admin_topbar', $data);
+    $this->load->view('admin/user_edit.php',$data);
+    $this->load->view('templates/admin_footer');
+  }
+
+  //mengubah data customer
+  public function changeCustomer(){
+    $this->User_model->changeCustomer();
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      Status Changed
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+    redirect('admin/userManagement');
+  }
+
+
 
 
 

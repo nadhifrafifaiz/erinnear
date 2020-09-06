@@ -5,7 +5,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Order Management</h1>
+          <h1 class="h3 mb-4 text-gray-800">Order</h1>
           <div class="col-4">
             <?= $this->session->flashdata('message');  ?>
           </div>
@@ -72,12 +72,53 @@
                       <th>Pesanan Sedang di Kemas</th>
                     <?php elseif ($data['status'] == 4): ?>
                       <th>Pesanan Sudah Bersama Kurir</th>
+                    <?php elseif ($data['status'] == 5): ?>
+                      <th>Pesanan Sudah Selesai</th>
                     <?php endif; ?>
                     <th>
                       <a href="<?= base_url("admin/orderDetail/".$data['orderId'])?>" class=" badge badge-warning ml-3">View</a>
                       <a href="<?= base_url("admin/orderStatus/".$data['orderId'])?>" class="badge badge-success ml-3">Edit</a>
-                      <a href="<?= base_url("admin/orderDone/".$data['orderId'])?>" class="badge badge-primary ml-3">Selesai</a>
-                      <a href="<?= base_url("admin/orderDelete/".$data['orderId'])?>" class="badge badge-danger ml-3">Delete</a>
+                      <a href="" class="badge badge-primary ml-3" data-toggle="modal" data-target="#doneModal">Selesai</a>
+                      <a href="" class="badge badge-danger ml-3 " data-toggle="modal" data-target="#deleteModal">Delete</a>
+
+                      <!-- Delete Modals -->
+                      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Hapus Pesanan Secara Permanen</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">Pesanan dengan ID <?= $data['orderId']?>, Atas Nama <?= $data['name']  ?></div>
+                        <div class="modal-footer">
+                          <button class="btn btn-warning" type="button" data-dismiss="modal">Batalkan</button>
+                          <a class="btn btn-danger" href="<?= base_url("admin/orderDelete/".$data['orderId'])?>">Hapus</a>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+
+                      <!-- Done Modals -->
+                      <div class="modal fade" id="doneModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Pesanan Selesai</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">Pesanan dengan ID <?= $data['orderId']?>, Atas Nama <?= $data['name']  ?></div>
+                        <div class="modal-footer">
+                          <button class="btn btn-warning" type="button" data-dismiss="modal">Batalkan</button>
+                          <a class="btn btn-success" href="<?= base_url("admin/orderDone/".$data['orderId'])?>">Selesai</a>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+
                     </th>
                     <th><?= date('d F Y', $data['date_created']);  ?></th>
                     <th><?= $data['note']  ?></th>

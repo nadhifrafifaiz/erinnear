@@ -22,13 +22,13 @@
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
                 <div class="container">
-                    <a class="navbar-brand js-scroll-trigger" href="<?=base_url('home')  ?>"><img src="<?=base_url('/assets/img/navbar-logo.svg') ?>" alt="" /></a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars ml-1"></i></button>
+                    <a class="navbar-brand js-scroll-trigger" href="<?=base_url('home')  ?>"><img src="<?=base_url('/assets/img/logos/navbar-logo-01.png') ?>" alt="" /></a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars ml-1"></i></button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav text-uppercase ml-auto">
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?=base_url('Order')  ?>">Pesan</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?=base_url('Order')        ?>">Pesan</a></li>
                             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Portofolio')  ?>">Portofolio</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="">Lacak</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Tentang</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Home/track')  ?>">Lacak</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Home/about')  ?>">Tentang</a></li>
 
                             <?php if($this->session->userdata('email')): ?>
                               <div class="dropdown">
@@ -38,8 +38,8 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <a class="dropdown-item" href="<?=base_url('user/index')  ?>">Profil</a>
-                                  <a class="dropdown-item" href="<?=base_url('order/cart') ?>">Keranjang Belanja</a>
+                                  <a class="dropdown-item" href="<?=base_url('user/index')    ?>">Profil</a>
+                                  <a class="dropdown-item" href="<?=base_url('order/cart')    ?>">Keranjang Belanja</a>
                                   <a class="dropdown-item" href="<?=base_url('auth/logout');  ?>">Keluar</a>
                                 </div>
                               </div>

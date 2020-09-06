@@ -10163,7 +10163,7 @@ img::-moz-selection {
   }
 }
 header.masthead {
-  padding-top: 10.5rem;
+  /* padding-top: 10.5rem; */
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
@@ -10584,4 +10584,15 @@ section#contact form#contactForm :-ms-input-placeholder {
   float: left;
   overflow: hidden;
   opacity: 0.5;
+}
+
+.pesanan{
+  width: 300px;
+  height: 300px;
+  float: left;
+  overflow: hidden;
+}
+
+.pesanan img{
+  width: 250px;
 }
