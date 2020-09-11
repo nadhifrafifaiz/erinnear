@@ -81,15 +81,49 @@ class User_model extends CI_model{
   public function changeCustomer(){
 
     $name = $this->input->post('name');
+    $status = $this->input->post('status');
     $point = $this->input->post('point');
     $role = $this->input->post('role');
 
 
     $this->db->set('name', $name);
+    $this->db->set('is_active', $status);
     $this->db->set('point', $point);
     $this->db->set('role_id', $role);
     $this->db->where('id', $this->input->post('id'));
     $this->db->update('user');
   }
+
+  public function userDelete($id){
+    $this->db->where('id', $id);
+    $this->db->delete('user');
+  }
+
+  public function addComplaint(){
+    $data=[
+      'email'=> htmlspecialchars($this->input->post('email',true)),
+      'name' => htmlspecialchars($this->input->post('name', true)),
+      'complaint' => htmlspecialchars($this->input->post('complaint', true)),
+      'date_created' => time()
+    ];
+
+    $this->db->insert('complaint', $data);
+  }
+
+  public function getUserComplaint($limit, $start, $keyword = null){
+    if($keyword){
+      $this->db->like('name', $keyword);
+      $this->db->order_by('date_created', 'DESC');
+      return $userData = $this->db->get('complaint',$limit, $start)->result_array();
+    }
+    $this->db->order_by('date_created', 'DESC');
+    return $this->db->get('complaint',$limit, $start)->result_array();
+  }
+
+  public function deleteUserComplaint($id){
+    $this->db->where('id', $id);
+    $this->db->delete('complaint');
+  }
+
 
 }

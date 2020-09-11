@@ -3,7 +3,6 @@
     <div class="container ">
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Lacak pesanan</h2>
-            <p class="section-heading mb-5">Lacak pesanan</p>
 
         </div>
 
@@ -12,7 +11,7 @@
           <div class="col-lg-4 md-4">
             <form class="" action="<?= base_url('home/track')  ?>" method="post">
               <div class="input-group mb-3">
-                <input type="text" class="form-control" name="keyword" placeholder="Cari" autocomplete="off">
+                <input type="text" class="form-control" name="keyword" placeholder="Cari nama atau nomor order" autocomplete="off">
                 <div class="input-group-append">
                   <input class="btn btn-warning" type="submit" name="cari"></input>
                 </div>
@@ -30,13 +29,9 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Order ID</th>
-                  <th scope="col">Email</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Phone</th>
-                  <th scope="col">Address</th>
                   <th scope="col">Status</th>
                   <th scope="col">Date</th>
-                  <th scope="col">Note</th>
                 </tr>
               </thead>
               <tbody>
@@ -55,10 +50,7 @@
                   <td><?= ++$start?></td>
 
                   <td><?= $data['orderId']  ?></td>
-                  <td><?= $data['email']  ?></td>
                   <td><?= $data['name']  ?></td>
-                  <td><?= $data['phone']  ?></td>
-                  <td><?= $data['address']  ?></td>
 
                   <?php if ($data['status'] == 1): ?>
                     <th>Menunggu Pembayaran</th>
@@ -73,7 +65,6 @@
                   <?php endif; ?>
 
                   <th><?= date('d F Y', $data['date_created']);  ?></th>
-                  <th><?= $data['note']  ?></th>
               </tr>
                 <?php endforeach; ?>
               </tbody>

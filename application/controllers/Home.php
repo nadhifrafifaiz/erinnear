@@ -6,6 +6,7 @@ class Home extends CI_Controller {
     parent::__construct();
 
     $this->load->model('Order_model');
+    $this->load->model('User_model');
 
   }
 
@@ -68,5 +69,57 @@ class Home extends CI_Controller {
     $this->load->view('templates/home_header',$data);
     $this->load->view('home/about.php',$data);
     $this->load->view('templates/home_footer',$data);
+  }
+
+  //halaman komplain
+  public function complaint(){
+    $data['title'] = 'Erinnear | Komplain';
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+
+    if(!$this->session->userdata('email')){
+      $this->load->view('templates/home_header',$data);
+      $this->load->view('home/complaint-empty.php',$data);
+      $this->load->view('templates/home_footer',$data);
+    }else {
+      $this->load->view('templates/home_header',$data);
+      $this->load->view('home/complaint.php',$data);
+      $this->load->view('templates/home_footer',$data);
+    }
+
+  }
+
+  public function addComplaint(){
+    //rules form_validation
+    $this->form_validation->set_rules('complaint', 'Copmplaint', 'trim|required|max_length[200]');
+
+    if($this->form_validation->run() == false ){
+      $this->complaint();
+    }else {
+      $userComplaint = $this->db->get_where('complaint', ['email'=>$this->session->userdata('email')])->row_array();
+      $date = $userComplaint['date_created'];
+
+      if(time()-$date < (60*60*24)){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    Tunggu 24 jam untuk memberikan kritik dan saran lagi
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>');
+        redirect('home/complaint');
+      }else {
+        // berhasil
+        $this->User_model->addComplaint();
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    Masukkan anda telah kami terima, Terima Kasih!
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>');
+        redirect('home/complaint');
+      }
+
+
+    }
+
   }
 }

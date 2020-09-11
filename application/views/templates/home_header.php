@@ -29,6 +29,7 @@
                             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Portofolio')  ?>">Portofolio</a></li>
                             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Home/track')  ?>">Lacak</a></li>
                             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Home/about')  ?>">Tentang</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= base_url('Home/complaint')  ?>">Komplain</a></li>
 
                             <?php if($this->session->userdata('email')): ?>
                               <div class="dropdown">

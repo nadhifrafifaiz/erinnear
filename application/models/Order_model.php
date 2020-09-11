@@ -38,6 +38,8 @@ class Order_model extends CI_model{
 
   public function placeOrder(){
     $orderId = uniqid('order-');
+    //untuk di kirim ke email
+    $this->session->set_userdata('orderId', $orderId);
 
     if ($this->session->userdata('email')) {
       $email = $this->session->userdata('email');

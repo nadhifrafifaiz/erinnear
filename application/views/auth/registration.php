@@ -8,16 +8,16 @@
           <div class="col-lg">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                <h1 class="h4 text-gray-900 mb-4">Buat Akun!</h1>
               </div>
               <form class="user" action="<?= base_url('auth/registration')  ?>" method="post">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Full Name" value="<?= set_value('name'); ?>">
+                  <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Nama" value="<?= set_value('name'); ?>">
                   <!-- untuk memprint error dari form validation di controller auth/registration -->
                   <?= form_error('name', '<small class="text-danger pl-3">','</small>');  ?>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
+                  <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email" value="<?= set_value('email'); ?>">
                   <!-- untuk memprint error dari form validation di controller auth/registration -->
                   <?= form_error('email', '<small class="text-danger pl-3">','</small>');  ?>
                 </div>
@@ -32,15 +32,15 @@
                   </div>
                 </div>
                 <button type="submit" class="btn btn-warning btn-user btn-block">
-                  Register Account
+                  Registrasi Akun
                 </button>
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                <a class="small" href="<?=base_url('auth/forgotpassword')  ?>">Lupa Password?</a>
               </div>
               <div class="text-center">
-                <a class="small" href="<?=base_url('auth/');?>">Already have an account? Login!</a>
+                <a class="small" href="<?=base_url('auth/');?>">Sudah memiliki  akun? Login!</a>
               </div>
             </div>
           </div>

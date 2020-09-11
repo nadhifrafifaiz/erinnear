@@ -4,19 +4,19 @@
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Checkout</h2>
             <?= $this->session->flashdata('message');  ?>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted"></h3>
         </div>
 
 
           <div class="row">
               <div class="col-lg-6 col-md-12 ">
 
-                <h4 class="mb-4">Billing & Shipping</h4>
+                <h4 class="mb-4">Pembayaran dan Pengiriman</h4>
 
                   <form class="" action="<?=base_url('order/placeOrder')  ?>" method="post">
 
                     <div class="form-group row">
-                      <label for="name" class="col-sm-3 col-form-label">Full Name</label>
+                      <label for="name" class="col-sm-3 col-form-label">Nama</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="fullname" name="fullname" value="<?= set_value('fullname')  ?>">
                         <?= form_error('fullname', '<small class="text-danger pl-3">','</small>');  ?>
@@ -43,7 +43,7 @@
 
 
                     <div class="form-group row">
-                      <label for="name" class="col-sm-3 col-form-label">Phone Number</label>
+                      <label for="name" class="col-sm-3 col-form-label">Nomor Telepon</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="phone" name="phone" value="<?= set_value('phone')  ?>">
                         <?= form_error('phone', '<small class="text-danger pl-3">','</small>');  ?>
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="form-group row">
-                      <label for="nama" class="col-sm-3 col-form-label">Address</label>
+                      <label for="nama" class="col-sm-3 col-form-label">Alamat</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="address" name="address" value="<?= set_value('address')?>"/>
                         <?= form_error('address', '<small class="text-danger pl-3">','</small>');  ?>
@@ -59,10 +59,10 @@
                     </div>
 
                     <div class="form-group row">
-                      <label for="province" class="col-sm-3 col-form-label">Province</label>
+                      <label for="province" class="col-sm-3 col-form-label">Provinsi</label>
                       <div class="col-sm-9">
                         <select class="form-control" id="province" name="province">
-                          <option value =" ">Select Province</option>
+                          <option value =" ">Pilih Provinsi</option>
                           <?php foreach ($province as $p):?>
                           <option value ="<?=$p->province_id?>"><?=$p->province_name?></option>
                          <?php endforeach ?>
@@ -73,10 +73,10 @@
 
 
                     <div class="form-group row">
-                      <label for="city"  class="col-sm-3 col-form-label">City/Town</label>
+                      <label for="city"  class="col-sm-3 col-form-label">Kota</label>
                       <div class="col-sm-9">
                         <select class="form-control" id="destination" name="destination">
-                          <option value =" ">Select City</option>
+                          <option value =" ">Pilih Kota</option>
                         </select>
                         <?= form_error('destination', '<small class="text-danger pl-3">','</small>');  ?>
                       </div>
@@ -87,7 +87,7 @@
 
 
                     <div class="form-group row">
-                      <label for="nama" class="col-sm-3 col-form-label">Postcode / ZIP</label>
+                      <label for="nama" class="col-sm-3 col-form-label">Kode Pos</label>
                       <div class="col-sm-4">
                         <input type="text" class="form-control" id="zip" name="zip" value="<?= set_value('zip')  ?>"/>
                         <?= form_error('zip', '<small class="text-danger pl-3">','</small>');  ?>
@@ -97,9 +97,9 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12 ">
-                    <h4 class="mb-4">Additional Information (Optional)</h4>
+                    <h4 class="mb-4">Informasi Tambahan</h4>
                     <div class="form-group row">
-                      <label for="nama" class="col-sm-3 col-form-label">Order Notes</label>
+                      <label for="nama" class="col-sm-3 col-form-label">Notes</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="note" name="note"/>
 
@@ -117,11 +117,11 @@
         <div class="card-body">
           <div class="row mt-3">
             <div class="col">
-              <h4 class="mb-4">Your Order</h4>
+              <h4 class="mb-4">Pesanan Anda</h4>
               <table class="table">
                 <tr>
-                  <th>Product</th>
-                  <th>Quantity</th>
+                  <th>Produk</th>
+                  <th>Jumlah</th>
                   <th>Desain</th>
                   <th>Total</th>
                 </tr>
@@ -144,7 +144,7 @@
                   <th><?="Rp. " . number_format($this->cart->total())?></th>
                 </tr>
                 <tr>
-                  <th>Shipping</th>
+                  <th>Ongkir</th>
                   <th></th>
                   <th></th>
                   <th><?="Rp. " . number_format($this->session->userdata('shippingCost'))?></th>
@@ -166,7 +166,7 @@
                 <?= "0"; ?>
               <?php else: ?>
                 <?=$user['point']?>
-              <?php endif; ?> 
+              <?php endif; ?>
                 Points</h5>
               <p>Gunakan 100 poin untuk gratis ongkos kirim</p>
               <a href="<?=base_url('order/usepoint')  ?>" class="btn btn-primary">Gunakan Poin</a>
@@ -180,19 +180,21 @@
       <div class="card mt-5">
         <div class="card-body">
           <div class="row">
-              <div class="col-lg-8 "><h4 class="mb-4">Payment</h4></div>
+              <div class="col-lg-8 "><h4 class="mb-4">Pembayaran -  Transfer Bank</h4></div>
           </div>
           <div class="card">
             <div class="card-body bg-light">
               <div class="row">
                   <div class="col-lg-12 ">
-                    <p class="large">Silahkan melakukan pembayaran ke rekening BANK BCA atas nama FIRMANSYAH PATRIAMAN 517 079 5000</p>
+                    <div class="form-check">
+                      <h6>Silahkan melakukan pembayaran ke rekening BANK BCA A/N Fadlan Hidayatulloh 517 079 5000</h6>
+                    </div>
                   </div>
               </div>
             </div>
           </div>
 
-          <button class="btn btn-primary mt-3" type="submit" name="tambah">Place Order</button>
+          <button class="btn btn-primary mt-3" type="submit" name="tambah">Pesan</button>
           </form>
         </div>
       </div>
@@ -200,11 +202,6 @@
 
 
 
-  </div>
-
-
-  <div class="row">
-      <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
   </div>
 
     </div>

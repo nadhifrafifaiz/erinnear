@@ -5,7 +5,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">User Management</h1>
+          <h1 class="h3 mb-4 text-gray-800">Customer</h1>
           <div class="col-4">
             <?= $this->session->flashdata('message');  ?>
           </div>
@@ -57,19 +57,29 @@
                     <td><?= $data['role_id']  ?></td>
                     <th><?= date('d F Y', $data['date_created']);  ?></th>
                     <th><?= $data['point']  ?></th>
-                    <th><a href="<?= base_url("admin/userEdit/".$data['id'])?>" class="badge badge-success ml-3"> Edit </a></th>
+                    <th>
+                      <a href="<?= base_url("admin/userEdit/".$data['id'])?>" class="badge badge-success ml-3"> Edit </a>
+                      <a href="" class="badge badge-danger ml-3 " data-toggle="modal" data-target="#deleteModal"> Delete </a>
 
-                    <!-- <?php if ($data['status'] == 1): ?>
-                      <th>Menunggu Pembayaran</th>
-                    <?php elseif ($data['status'] == 2): ?>
-                      <th>Pesanan Sedang Di Proses</th>
-                    <?php elseif ($data['status'] == 3): ?>
-                      <th>Pesanan Sedang di Kemas</th>
-                    <?php elseif ($data['status'] == 4): ?>
-                      <th>Pesanan Sudah Bersama Kurir</th>
-                    <?php elseif ($data['status'] == 5): ?>
-                      <th>Pesanan Sudah Selesai</th>
-                    <?php endif; ?> -->
+                      <!-- Delete Modals -->
+                      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Hapus Pengguna Secara Permanen</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">Pengguna dengan nama <?= $data['name']?></div>
+                        <div class="modal-footer">
+                          <button class="btn btn-warning" type="button" data-dismiss="modal">Tidak</button>
+                          <a class="btn btn-danger" href="<?= base_url("admin/userDelete/".$data['id'])?>">Hapus</a>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+                    </th>
                 </tr>
                   <?php endforeach; ?>
                 </tbody>

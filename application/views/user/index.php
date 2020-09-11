@@ -3,7 +3,7 @@
     <section class="page-section bg-white" id="services">
         <div class="container ">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">PROFILE</h2>
+                <h2 class="section-heading text-uppercase">PROFIL</h2>
                 <div class="row">
                   <div class="col">
                     <?=  $this->session->flashdata('message');?>
@@ -18,7 +18,7 @@
                         <h4 class=""><?=$user['name'];  ?></h4>
                         <p class="text-muted"><?=$user['email'];  ?></p>
                         <div class="row justify-content-center">
-                          <a class="btn btn-primary btn-lg text-uppercase js-scroll-trigger" href="<?= base_url('user/edit')  ?>">Edit Profile</a>
+                          <a class="btn btn-primary btn-lg text-uppercase js-scroll-trigger" href="<?= base_url('user/edit')  ?>">Ubah Profil</a>
                         </div>
                     </div>
                 </div>
@@ -60,8 +60,8 @@
     <section class="page-section bg-light" id="team">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Order History</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">Riwayat Pemesanan</h2>
+                <h3 class="section-subheading text-muted"></h3>
             </div>
             <div class="row">
                 <div class="col">
@@ -72,7 +72,6 @@
                         <th scope="col">Order ID</th>
                         <th scope="col">Email</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
                         <th scope="col">Status</th>
                       </tr>
                     </thead>
@@ -85,7 +84,6 @@
                         <th><?= $data['orderId']  ?></th>
                         <th><?= $data['email']  ?></th>
                         <th><?= $data['name']  ?></th>
-                        <th><?= $data['phone']  ?></th>
 
                         <?php if ($data['status'] == 1): ?>
                           <th>Wating for payment verification</th>
@@ -106,8 +104,6 @@
 
 
             </div>
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
-            </div>
+
         </div>
     </section>

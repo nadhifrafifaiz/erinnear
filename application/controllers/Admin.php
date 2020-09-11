@@ -101,7 +101,7 @@ class Admin extends CI_Controller {
 
 //melihat pesanan
   public function order(){
-    $data['title'] = 'Erinnear | Order Management';
+    $data['title'] = 'Erinnear | Atur Pesanan';
     $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
     // $data['orderData'] = $this->Order_model->getOrder();
 
@@ -173,6 +173,32 @@ class Admin extends CI_Controller {
     $this->load->view('templates/admin_footer');
   }
 
+  //pesanan dibatalkan
+  public function orderCancel($orderId){
+    $selectedData = $this->Order_model->getOrderDetail($orderId);
+    $num = $this->db->affected_rows();
+
+    foreach ($selectedData as $data) {
+        unlink(FCPATH . 'assets/img/user_design/' . $data['design']); //hapus gambar dari folder
+      }
+
+    //kirim email
+    $this->session->set_userdata('orderId', $orderId);
+    $user = $this->db->get_where('order_customer', ['orderId' =>$orderId])->row_array();
+    $email = $user['email'];
+    $this->_sendEmail($email, 'delete');
+    $this->session->unset_userdata('orderId', $orderId);
+
+    $this->Order_model->deleteOrder($orderId);
+    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      Order deleted!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+    redirect('admin/order');
+  }
+
   //pesanan dihapus
   public function orderDelete($orderId){
     $selectedData = $this->Order_model->getOrderDetail($orderId);
@@ -224,6 +250,11 @@ class Admin extends CI_Controller {
 
     $this->Order_model->doneOrder($orderId);
 
+    //kirim email
+    $user = $this->db->get_where('order_customer', ['orderId' =>$orderId])->row_array();
+    $email = $user['email'];
+    $this->_sendEmail($email, 'done');
+
     $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
       Order Selesai!
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -237,6 +268,7 @@ class Admin extends CI_Controller {
   //mengubah status pemesanan
   public function changeOrderStatus(){
     $this->Order_model->changeOrderStatus();
+    $this->_sendEmail(0, $this->input->post('status'));
 
     $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
       Status Changed
@@ -292,7 +324,7 @@ class Admin extends CI_Controller {
 
   //user management
   public function userManagement(){
-    $data['title'] = 'Erinnear | User Management';
+    $data['title'] = 'Erinnear | Customer';
     $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
 
     //laod library
@@ -356,6 +388,129 @@ class Admin extends CI_Controller {
       </button>
     </div>');
     redirect('admin/userManagement');
+  }
+
+  //menghapus customer
+  public function userDelete($id){
+    $this->User_model->userDelete($id);
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      Pengguna berhasil dihapus
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+    redirect('admin/userManagement');
+  }
+
+  //atur komplain
+  public function complaintManagement(){
+    $data['title'] = 'Erinnear | Komplain';
+    $data['user'] = $this->db->get_where('user', ['email'=>$this->session->userdata('email')])->row_array();
+
+    //laod library
+    $this->load->library('pagination');
+    //ambil data keyword
+    if($this->input->post('cari')){
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    //config
+    $config['base_url'] = 'http://localhost/erinnear/admin/complaintManagement';
+
+    $this->db->like('name', $data['keyword']);
+    $this->db->from('complaint');
+
+
+    $config['total_rows'] = $this->db->count_all_results();
+    $data['total_rows'] = $config['total_rows'];
+    $config['per_page'] = 3;
+
+    //initialize
+    $this->pagination->initialize($config);
+
+    //ngasih tahu start dari mana
+    $data['start'] = $this->uri->segment(3);
+    // $data['userData'] = $this->User_model->getUser($config['per_page'],$data['start'], $data['keyword']);
+
+    $data['userComplaint'] = $this->User_model->getUserComplaint($config['per_page'],$data['start'], $data['keyword']);
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/admin_sidebar', $data);
+    $this->load->view('templates/admin_topbar', $data);
+    $this->load->view('admin/complaint-management.php',$data);
+    $this->load->view('templates/admin_footer');
+  }
+
+  public function userComplaintDelete($id){
+    $this->User_model->deleteUserComplaint($id);
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      Komplain berhasil dihapus
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+    redirect('admin/complaintManagement');
+  }
+
+
+
+
+
+  private function _sendEmail($email, $type){
+    $config = [
+      'protocol' => 'smtp',
+      'smtp_host' =>'ssl://smtp.googlemail.com',
+      'smtp_user' =>'erinnear.id@gmail.com',
+      'smtp_pass' =>'fadlan1234',
+      'smtp_port' => 465,
+      'mailtype' => 'html',
+      'charset' => 'utf-8',
+      'newline' => "\r\n"
+    ];
+
+    $this->load->library('email', $config);
+    $this->email->initialize($config);
+
+    $this->email->from('erinnear.id@gmail.com', 'Erinnear Indonesia');
+
+
+    if($type== 1){
+      $this->email->to($this->input->post('email'));
+      $this->email->subject('Status Pemesanan');
+      $this->email->message('Status pemesanan anda : Menunggu Pembayaran, silahkan konfirmasi pembayaran melalui WhatsApp atau hubungi kami jika anda sudah melakukan verifikasi ');
+    } elseif ($type == 2) {
+      $this->email->to($this->input->post('email'));
+      $this->email->subject('Status Pemesanan');
+      $this->email->message('Status pemesanan anda : Pesanan Sedang diproses, Pesanan anda sedang di sablon oleh tim kami ');
+    } elseif ($type == 3) {
+      $this->email->to($this->input->post('email'));
+      $this->email->subject('Status Pemesanan');
+      $this->email->message('Status pemesanan anda : Pesanan Sedang dikemas, Pesanan anda sedang di kemas oleh tim kami ');
+    } elseif ($type == 4) {
+      $this->email->to($this->input->post('email'));
+      $this->email->subject('Status Pemesanan');
+      $this->email->message('Status pemesanan anda : Pesanan Sudah Bersama Kurir, Pesanan anda sedang diperjalanan bersama kurir. hubungi kami untuk mengetahui nomor resi');
+    }elseif ($type == 'done') {
+      $this->email->to($email);
+      $this->email->subject('Status Pemesanan');
+      $this->email->message('Status pemesanan anda sudah selesai' );
+    }elseif ($type == 'delete') {
+      $this->email->to($email);
+      $this->email->subject('Status Pemesanan');
+      $this->email->message('Pesanan anda dengan nomor pesanan '. $this->session->userdata('orderId') .' berhasil di batalkan' );
+    }
+
+    if($this->email->send()) {
+      return true;
+    }else {
+      echo $this->email->print_debugger();
+      die;
+    }
   }
 
 

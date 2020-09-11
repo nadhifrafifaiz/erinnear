@@ -7,7 +7,7 @@ class Portofolio extends CI_Controller{
 
 
   public function index(){
-    $url = 'https://graph.instagram.com/me/media?access_token=IGQVJVbzZAZARUtfWjVVcGFiTnRoeU5TN2E5Ukwtc0h2U3NtZAFp2WHF0LWUwaG5EZAXN0Q2tvNjBiak1fUWowOXp3anlfUGo2RGJMYWsyRWhxOEtkOXIzbnRJc3ROYW1HdUt3UzhSNVkzcWRETS1VYzNZAXwZDZD&fields=id,media_type,media_url,username,timestamp';
+    $url = 'https://graph.instagram.com/me/media?access_token=IGQVJXVjVmcUlLWnNFazd6SUM1U3VDNTZAXUHZAXaFB2Um9iS1ZAEU3I1UHZAFb2xtSGdsd2xHRlJYaGliY2RzZA08yVElRclA3aFFWUS1iRXRXSnBWeFZAua0RWZAFBZAMHlNSm5Ba1c1N3VBRlY2Yzhmczc0MQZDZD&fields=id,media_type,media_url,username,timestamp';
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

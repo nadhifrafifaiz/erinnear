@@ -93,8 +93,8 @@
                         </div>
                         <div class="modal-body">Pesanan dengan ID <?= $data['orderId']?>, Atas Nama <?= $data['name']  ?></div>
                         <div class="modal-footer">
-                          <button class="btn btn-warning" type="button" data-dismiss="modal">Batalkan</button>
-                          <a class="btn btn-danger" href="<?= base_url("admin/orderDelete/".$data['orderId'])?>">Hapus</a>
+                          <button class="btn btn-warning" type="button" data-dismiss="modal">Tidak</button>
+                          <a class="btn btn-danger" href="<?= base_url("admin/ordercancel/".$data['orderId'])?>">Batalkan Pesanan</a>
                         </div>
                       </div>
                       </div>

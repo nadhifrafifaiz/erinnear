@@ -28,6 +28,7 @@
 
               <form class="" action="<?=base_url('admin/changeOrderStatus')  ?>" method="post">
                 <input type="hidden" name="orderId" value="<?= $customerData['orderId']; ?>">
+                <input type="hidden" name="email" value="<?= $customerData['email']; ?>">
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Ubah Status Pesanan</label>
                   <select class="form-control" id="status" name="status" value="">

@@ -5,7 +5,7 @@
         <div class="container-fluid">
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary mb-2">Order Detail</h6>
+              <h6 class="m-0 font-weight-bold text-primary mb-2">Detail Pesanan</h6>
               <a href="<?=base_url('admin/order')  ?>"><h4><?= $customerData['name']." : ".$customerData['orderId']?></h4></a>
             </div>
             <div class="card-body ">

@@ -55,6 +55,7 @@ class Order extends CI_Controller {
         $config['allowed_types'] = 'jpg|png';
         $config['max_size']      = '20480';
         $config['upload_path']   = './assets/img/user_design/';
+        $config['remove_spaces'] = TRUE;
 
         //upload gambar ke folder user_design
         $this->load->library('upload', $config);
@@ -228,6 +229,9 @@ class Order extends CI_Controller {
 
     } else {
       $this->Order_model->placeOrder();
+      //kirim Email
+      $this->_sendEmail('Order');
+
       $this->cart->destroy();
 
       if($this->session->userdata('email')){
@@ -247,6 +251,38 @@ class Order extends CI_Controller {
 //ini ke status langsung
     }
   }
+
+    private function _sendEmail($type){
+      $config = [
+        'protocol' => 'smtp',
+        'smtp_host' =>'ssl://smtp.googlemail.com',
+        'smtp_user' =>'erinnear.id@gmail.com',
+        'smtp_pass' =>'fadlan1234',
+        'smtp_port' => 465,
+        'mailtype' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+      ];
+
+      $this->load->library('email', $config);
+      $this->email->initialize($config);
+
+      $this->email->from('erinnear.id@gmail.com', 'Erinnear Indonesia');
+      $this->email->to($this->input->post('email'));
+
+      if($type=='Order'){
+        $this->email->subject('Order Sedang Di Proses');
+        $this->email->message('Pesanan anda dengan nomor pesanan ' .  $this->session->userdata('orderId') . ' sudah di catat, silahkan lakukan pembayaran melalui Bank BNI dengan nomor rekening A/n . Lalu lakukan verifikasi melalui WhatsApp ke WhatsApp Erinnear di 081212. Cek status pemesanan anda pada website Erinnear');
+        $this->session->unset_userdata('orderId');
+      }
+
+      if($this->email->send()) {
+        return true;
+      }else {
+        echo $this->email->print_debugger();
+        die;
+      }
+    }
 
 
   //cek referal code

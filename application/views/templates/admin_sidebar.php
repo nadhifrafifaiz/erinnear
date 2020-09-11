@@ -16,21 +16,14 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Admin
+        Pesanan
       </div>
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt text-warning"></i>
-          <span>Dashboard</span></a>
-      </li>
 
       <!-- Nav Item - View Order -->
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/order')  ?>">
           <i class="fas fa-fw fa-store text-warning"></i>
-          <span>Order</span></a>
+          <span>Atur Pesanan</span></a>
       </li>
 
       <!-- Nav Item - View Order History -->
@@ -40,11 +33,26 @@
           <span>Riwayat Pesanan</span></a>
       </li>
 
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Customer
+      </div>
+
       <!-- Nav Item - Customer Management -->
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('admin/userManagement')  ?>">
           <i class="fas fa-fw fa-users text-warning"></i>
           <span>Customer</span></a>
+      </li>
+
+      <!-- Nav Item - Customer Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/complaintManagement')  ?>">
+          <i class="fas fa-fw fa-bullhorn text-warning"></i>
+          <span>Komplain</span></a>
       </li>
 
       <!-- Divider -->

@@ -5,7 +5,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">My Profile</h1>
+          <h1 class="h3 mb-4 text-gray-800">Ubah Profil</h1>
 
 
           <!-- Form edit Profile -->
@@ -43,7 +43,7 @@
                   </div>
                   <div class="form-group row justify-content-end mt-3">
                     <div class="col-sm-10">
-                      <button type="submit" class="btn btn-primary">Edit Profile</button>
+                      <button type="submit" class="btn btn-primary">Ubah Profil</button>
                     </div>
                   </div>
                 </form>
